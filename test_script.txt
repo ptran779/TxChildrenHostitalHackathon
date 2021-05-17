@@ -1,4 +1,0 @@
-helloworld
-This is the second test
-
-third trial
