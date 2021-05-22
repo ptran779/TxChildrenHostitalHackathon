@@ -9,6 +9,8 @@ public class Dogmovement : MonoBehaviour
     Quaternion playerRot;
     public float RoSpeed = 10;
     public float speed = 5;
+    bool moving = false;
+    public float tollerate = 0.5f;
 
     // Vector3 lookAt;
     // Start is called before the first frame update
@@ -20,22 +22,32 @@ public class Dogmovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // lock rotation
-        transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
-        
         // goto to mouse click
         if (Input.GetMouseButton(0)){
             SetTargetPosition();
+            }
+        if (moving){
+            moveto();
+            float xdiff = targetPosition.x - transform.position.x;
+            float zdiff = targetPosition.z - transform.position.z;
+            float distance = Mathf.Sqrt(Mathf.Pow(xdiff, 2)+ Mathf.Sqrt(Mathf.Pow(zdiff, 2)));
+            if (distance <= tollerate){
+                moving = false;
+            }
         }
     }
     void SetTargetPosition(){
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
+        // only set new target if hit
         if (Physics.Raycast(ray, out hit, 1000)){
             targetPosition = hit.point;
-            TargetVector = new Vector3(targetPosition.x - transform.position.x,
-            transform.position.y,
+            moving = true;
+        }
+    }
+    void moveto(){
+        TargetVector = new Vector3(targetPosition.x - transform.position.x,
+            0.0f,
             targetPosition.z - transform.position.z);
             
             playerRot = Quaternion.LookRotation(TargetVector);
@@ -44,9 +56,7 @@ public class Dogmovement : MonoBehaviour
                                                     playerRot,
                                                     RoSpeed * Time.deltaTime);
             transform.position = Vector3.MoveTowards(transform.position,
-                                                    targetPosition,
+                                                    new Vector3(targetPosition.x, transform.position.y,targetPosition.z),
                                                     speed * Time.deltaTime);
         }
-    }
 }
- 
