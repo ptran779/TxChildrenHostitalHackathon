@@ -57,3 +57,6 @@ gamebuild/*.unitypackage
 
 # Crashlytics generated file
 crashlytics-build.properties
+
+# google service
+gamebuild/google-services.json

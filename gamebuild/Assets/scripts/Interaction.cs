@@ -53,10 +53,8 @@ public class Interaction : MonoBehaviour
             InteUI = Instantiate(UiFloater, UserCanvas.transform);
             InteUI.name = "UITaskInte";
             InteUI.GetComponent<lockonobject>().target = collide.gameObject;
-            if (!busy){
-                InteUI.transform.Find("Description").GetComponent<TextMeshProUGUI>().SetText("View Task");
-                InteUI.GetComponent<Button>().onClick.AddListener(() => OpenMyTask());
-            } 
+            InteUI.transform.Find("Description").GetComponent<TextMeshProUGUI>().SetText("View Task");
+            InteUI.GetComponent<Button>().onClick.AddListener(() => OpenMyTask());
             // else{
             //     InteUI.transform.Find("Description").GetComponent<TextMeshProUGUI>().SetText("Get Off Couch");
             //     InteUI.GetComponent<Button>().onClick.AddListener(() => GetOffStuff(collide.gameObject.transform.position));
@@ -109,6 +107,5 @@ public class Interaction : MonoBehaviour
         InteUI = Instantiate(UiTasker, UserCanvas.transform);
         InteUI.name = "UITask";
         InteUI.GetComponent<TaskHandler>().Player = transform.gameObject;
-        busy = true;
     }
 }
