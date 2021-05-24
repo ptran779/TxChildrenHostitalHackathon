@@ -42,7 +42,7 @@ public class TaskHandler : MonoBehaviour
 
         while(line != null){
             alltask.Add(line);  // for later use
-
+            Debug.Log(line);
             taskdata = line.Split(',');
             if (taskdata[2] == "N"){
                 ATask = Instantiate(ATaskFormat, transform);
