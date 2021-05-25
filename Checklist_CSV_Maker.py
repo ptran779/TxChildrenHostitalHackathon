@@ -1,16 +1,19 @@
 import tkinter
 import tkinter.messagebox
+import time
 
 tk = tkinter.Tk()
 tk.title("Hospital Activity Tracker")
 
+
 def add_task():
     task = enterTask.get()
     if task != "":
-        taskList.insert(tkinter.END, task)
+        taskList.insert(tkinter.END, "ID:{} | {}".format(int(time.time()), task))
         enterTask.delete(0, tkinter.END)
     else:
         tkinter.messagebox.showwarning(title="Error", message="You must enter a task.")
+
 
 def delete_task():
     try:
@@ -22,13 +25,14 @@ def delete_task():
 
 def export_tasks():
     tasks = taskList.get(0, taskList.size())
-    ###Export CSV
-    taskLine = ""
-    with open('patientTask.csv', 'w', newline = '') as csvfile:
+    ### Export CSV
+    with open('patientTask.csv', 'w', newline='') as csvfile:
+        csvfile.write("TaskID,description,Status,Date and time,Note\n")
         for i in tasks:
-            taskLine += i + ", "
-        taskLine = taskLine[:-2]
-        csvfile.write(taskLine)
+            ID, task = i.split("|", maxsplit=1)
+            ID = ID[3:]
+            line = "{},{},N,{},\n".format(ID, task, time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(int(ID))))
+            csvfile.write(line)
     
 # Create GUI
 frame_tasks = tkinter.Frame(tk)
