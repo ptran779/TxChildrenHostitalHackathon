@@ -2,7 +2,7 @@
 Summer 2021
 
 All finish version for major OS are avaliable and should be found in completebuilt/ folder 
-To use any of the version, download and unzip/untar them and run the binary
+To use any of the version, you only need to download from the folder and unzip/untar the file and run the binary. 
 
 ------------------------
 Linux and Window
