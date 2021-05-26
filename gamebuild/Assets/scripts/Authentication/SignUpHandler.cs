@@ -78,6 +78,8 @@ public class SignUpHandler : MonoBehaviour
       }
     } else if (task.IsCompleted) {
       Debug.Log(operation + " completed");
+
+      signupButton.gameObject.SetActive(false);
       complete = true;
     }
     return complete;
